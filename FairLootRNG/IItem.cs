@@ -7,7 +7,7 @@ namespace FairLootRNG
     interface IItem
     {
         public double Weight { get; }
-        public double Value { get; }
+        public double MagicFindMultiplier { get; }
         public string Name { get; }
     }
 }

@@ -164,7 +164,7 @@ namespace FairLootRNG
             double sum = 0;
             foreach(var item in items)
             {
-                sum += item.Weight * (1 + (magicFind + badLuckMagicFind) * item.Value);
+                sum += item.Weight * (1 + (magicFind + badLuckMagicFind) * item.MagicFindMultiplier);
             }
             return sum;
         }
@@ -174,7 +174,7 @@ namespace FairLootRNG
             double sum = 0;
             foreach (var item in items)
             {
-                sum += item.Weight * (1 + (magicFind + badLuckMagicFind) * item.Value);
+                sum += item.Weight * (1 + (magicFind + badLuckMagicFind) * item.MagicFindMultiplier);
             }
             return sum;
         }
@@ -203,8 +203,8 @@ namespace FairLootRNG
             var adjustedMF = 1 + MF;
             for (int i = 0; i < items.Count; i++)
             {
-                var weight = items[i].Weight + items[i].Weight * MF * items[i].Value;
-                stringBuilder.AppendLine($"\t[{items[i].Name}]: Weight = {weight:000.000}, Value = {items[i].Value:00}, chance: {weight / weightSum * 100:0.00}%");
+                var weight = items[i].Weight + items[i].Weight * MF * items[i].MagicFindMultiplier;
+                stringBuilder.AppendLine($"\t[{items[i].Name}]: Weight = {weight:000.000}, Value = {items[i].MagicFindMultiplier:00}, chance: {weight / weightSum * 100:0.00}%");
             }
             stringBuilder.AppendLine($"\tWeight Sum: {weightSum}");
             stringBuilder.AppendLine("}");

@@ -9,15 +9,15 @@ namespace FairLootRNG
         internal double weight;
         public double Weight => weight;
 
-        internal double value;
-        public double Value => value;
+        internal double magicFindMultiplier;
+        public double MagicFindMultiplier => magicFindMultiplier;
 
         internal string name;
         public string Name => name;
 
         public override string ToString()
         {
-            return $"[{name}]: Weight = {Weight:000.000}, Value = {Value:00}";
+            return $"[{name}]: Weight = {Weight:000.000}, Value = {MagicFindMultiplier:00}";
         }
     }
 }

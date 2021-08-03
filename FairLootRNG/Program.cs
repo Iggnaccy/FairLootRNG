@@ -19,7 +19,7 @@ namespace FairLootRNG
             sw.Start();
             for(int i = 0; i < 20; i++)
             {
-                items.Add(new Item { value = i/2, weight = (20 - i) * 50, name = $"Item #{i:00}" });
+                items.Add(new Item { magicFindMultiplier = i/2, weight = (20 - i) * 50, name = $"Item #{i:00}" });
             }
             Console.WriteLine($"Created random table in {sw.Elapsed.TotalSeconds}s");
             sw.Stop();
@@ -36,9 +36,9 @@ namespace FairLootRNG
             double weightSumDiv = 1.0 / lootTable.WeightSum, weightSumDiv20 = 1.0 / lootTable.GetWeightSum(0.2), weightSumDiv100 = 1.0 / lootTable.GetWeightSum(1);
             foreach(var item in lootTable.Items)
             {
-                averageValue += item.Value * item.Weight * weightSumDiv;
-                averageValue20 += item.Value * item.Weight * (1 + .2 * item.Value) * weightSumDiv20;
-                averageValue100 += item.Value * item.Weight * (1 + 1 * item.Value) * weightSumDiv100;
+                averageValue += item.MagicFindMultiplier * item.Weight * weightSumDiv;
+                averageValue20 += item.MagicFindMultiplier * item.Weight * (1 + .2 * item.MagicFindMultiplier) * weightSumDiv20;
+                averageValue100 += item.MagicFindMultiplier * item.Weight * (1 + 1 * item.MagicFindMultiplier) * weightSumDiv100;
             }
             Console.WriteLine($"Average value in table: {averageValue:0.000} at 0% MF");
             Console.WriteLine($"Average value in table: {averageValue20:0.000} at 20% MF");
@@ -69,7 +69,7 @@ namespace FairLootRNG
                 //rolls.Sort((x, y) => (int)(x.Value - y.Value));
                 double rollSumF = 0;
                 foreach (var roll in rolls)
-                    rollSumF += roll.Value;
+                    rollSumF += roll.MagicFindMultiplier;
                 Console.WriteLine($"Rolls had a total value of {rollSumF}, average: {rollSumF / 1000000.0:0.000}");
                 //Console.WriteLine($"Rolls:\n{TableToString(rolls, lootTable)}");
                 //Console.WriteLine($"Items rolled in {sw.Elapsed.TotalSeconds}");
@@ -83,7 +83,7 @@ namespace FairLootRNG
             //rolls.Sort((x, y) => (int)(x.Value - y.Value));
             double rollSum = 0;
             foreach (var roll in rolls)
-                rollSum += roll.Value;
+                rollSum += roll.MagicFindMultiplier;
             Console.WriteLine($"Rolls had a total value of {rollSum}, average: {rollSum / 1000000.0:0.000}");
             //Console.WriteLine($"Rolls:\n{TableToString(rolls, lootTable)}");
             //Console.WriteLine($"Items rolled in {sw.Elapsed.TotalSeconds}");
