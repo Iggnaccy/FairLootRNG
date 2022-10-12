@@ -97,19 +97,18 @@ namespace FairLootRNG
             if (items.Count == 0) throw new IndexOutOfRangeException("Trying to roll on an empty table");
             var rolled = new List<IItem>();
             var finalMFValue = (magicFindOverride > 0 ? magicFindOverride : fairLootController.MagicFindValue) + fairLootController.BadLuckValue;
-            var finalWeightMultiValue = 1 + finalMFValue;
             var maximumRoll = GetWeightSum(finalMFValue);
             Console.WriteLine($"[FairLootTable] rolling {rolls} times with MF = {finalMFValue}, maximum roll = {maximumRoll}");
             for (int i = 0; i < rolls; i++)
             {
                 var roll = rng.NextDouble() * maximumRoll;
                 int id = 0;
-                while (roll > items[id].Weight * finalWeightMultiValue && id + 1 < items.Count)
+                while (roll > items[id].Weight * (1 + items[id].MagicFindMultiplier * finalMFValue) && id + 1 < items.Count)
                 {
-                    roll -= items[id].Weight * finalWeightMultiValue;
+                    roll -= items[id].Weight * (1 + items[id].MagicFindMultiplier * finalMFValue);
                     id++;
                 }
-                fairLootController.ScoreCorrection(roll, maximumRoll);
+                //fairLootController.ScoreCorrection(roll, maximumRoll);
                 rolled.Add(items[id]);
             }
             return rolled;
